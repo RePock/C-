@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace lab1 {
     internal class Program {
@@ -7,7 +8,7 @@ namespace lab1 {
             var inputDate = Console.ReadLine();
             var calendar = new Calendar(inputDate);
             calendar.Show();
-            Console.ReadKey();
+           // Console.ReadKey();
         }
     }
 
@@ -35,15 +36,23 @@ namespace lab1 {
         }
 
         private static bool ParseDate(string inputDate, out DateTime date) {
+            StringBuilder sb = new StringBuilder(264);
             if (DateTime.TryParse(inputDate, out date)) {
                 return true;
             }
-
-            Console.WriteLine("Wrong input. Please, use one of these formats:" + "\n05/01/2009 14:57:32.8" +
-                              "\n2009-05-01 14:57:32.8" + "\n2009-05-01T14:57:32.8375298-04:00" + "\n5/01/2008" +
-                              "\n5/01/2008 14:57:32.80 -07:00" + "\n1 May 2008 2:57:32.8 PM" +
-                              "\n16-05-2009 1:00:32 PM" + "\nFri, 15 May 2009 20:10:57 GMT" + "\n10.05.2019" +
-                              "\n10.05.19" + "10.05");
+            sb.Append("Wrong input. Please, use one of these formats:");
+            sb.Append("\n05/01/2009 14:57:32.8");
+            sb.Append("\n2009-05-01 14:57:32.8");
+            sb.Append("\n2009-05-01T14:57:32.8375298-04:00");
+            sb.Append("\n5/01/2008");
+            sb.Append("\n5/01/2008 14:57:32.80 -07:00");
+            sb.Append("\n1 May 2008 2:57:32.8 PM");
+            sb.Append("\n16-05-2009 1:00:32 PM");
+            sb.Append("\nFri, 15 May 2009 20:10:57 GMT");
+            sb.Append("\n10.05.2019");
+            sb.Append("\n10.05.19");
+            sb.Append("10.05");
+            Console.WriteLine(sb.ToString());
             return false;
         }
 
@@ -71,7 +80,7 @@ namespace lab1 {
                 var space = currentDate.Day.ToString().Length > 1
                     ? RightOffsetTwoDigit + Delimiter
                     : RightOffsetOneDigit + Delimiter;
-                if (currentDate.DayOfWeek.GetHashCode() == 0) {
+                if ((int)currentDate.DayOfWeek == 0) {
                     Console.Write(LeftOffset + currentDate.Day + space + "\n");
                 } else {
                     Console.Write(LeftOffset + currentDate.Day + space);
@@ -85,7 +94,7 @@ namespace lab1 {
         }
 
         private static void SkipDays(DateTime dateTime) {
-            for (var step = 0; step < (dateTime.DayOfWeek.GetHashCode() - 1 + DayInWeek) % DayInWeek; step++) {
+            for (var step = 0; step < ((int)dateTime.DayOfWeek - 1 + DayInWeek) % DayInWeek; step++) {
                 Console.Write("         ");
             }
         }

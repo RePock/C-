@@ -58,7 +58,8 @@ namespace lab2
 
                         if (cout % 4 == 0)
                         {
-                            Console.WriteLine(name + "." + fraza[fraz]);
+                            Console.WriteLine(name + ", " + fraza[fraz]);
+                            fraz = rand.Next(fraza.Length);
                         }
 
                         s = Console.ReadLine();
@@ -82,7 +83,7 @@ namespace lab2
                 {
                     Console.WriteLine("Хорошо, угадал");
                     history.Add(s + " ровно");
-                    Console.WriteLine("Кол - во попыток" + " " + result);
+                    Console.WriteLine($"Кол - во попыток {result}");
                     foreach (String h in history)
                     {
                         Console.WriteLine(h);
@@ -90,7 +91,7 @@ namespace lab2
 
                     DateTime date2 = DateTime.Now;
                     TimeSpan interval = date2 - date1;
-                    Console.WriteLine("Ты потратил" + " " + interval.ToString());
+                    Console.WriteLine($"Ты потратил {interval.ToString()}");
                 }
             }
         }
